@@ -11,7 +11,7 @@ use Sintattica\Atk\Utils\IpUtils;
  *
  * @author Santiago Ottonello <sanotto@gmail.com>
  */
-class YearMonth extends Attribute
+class YearMonthAttribute extends Attribute
 {
     /**
      * Constructor.
