@@ -22,7 +22,7 @@ class YearMonthAttribute extends Attribute
     public function __construct($name, $flags = 0)
     {
         parent::__construct($name, $flags);
-        $this->setAttribSize(6);
+		$this->setAttribSize(6);
     }
 
     /**
@@ -33,8 +33,9 @@ class YearMonthAttribute extends Attribute
      * @return string fetched value
      */
     public function fetchValue($postvars)
-    {
-		return parent::fetchValue($postvars[$this->fieldName()]);
+	{
+		$value = parent::fetchValue($postvars);
+		return $value;
     }
 
     public function edit($record, $fieldprefix, $mode)
@@ -57,9 +58,8 @@ class YearMonthAttribute extends Attribute
         $strvalue = Tools::atkArrayNvl($record, $this->fieldName(), '');
         if ($strvalue != '' && $strvalue != '...') 
 		{
-            $year = substr($value, 0, 4);
-			$month = substr($value, 5, 2);
-
+            $year = substr($strvalue, 0, 4);
+			$month = substr($strvalue, 4, 2);
  			if(!is_numeric($year) || !is_numeric($month))
 			{
                 Tools::triggerError($record, $this->fieldName(), 'error_not_a_valid_year_month');
@@ -86,7 +86,7 @@ class YearMonthAttribute extends Attribute
      * @return string The database compatible value
      */
     public function value2db($rec)
-    {
+	{
 		$value= Tools::atkArrayNvl($rec, $this->fieldName());
         return $value; 
     }
@@ -111,7 +111,7 @@ class YearMonthAttribute extends Attribute
      */
     public function dbFieldType()
     {
-        return 'int';
+        return 'number';
     }
 
     /**
@@ -121,6 +121,6 @@ class YearMonthAttribute extends Attribute
      */
     public function dbFieldSize()
     {
-        return 6;
+        return '';
     }
 }
