@@ -39,7 +39,7 @@ class YearMonth extends Attribute
      */
     public function fetchValue($postvars)
     {
-		if ($this->hasFlag(self::AF_NO_HYPHEN) 
+		if ($this->hasFlag(self::AF_NO_HYPHEN))
 		{
 			return parent::fetchValue($postvars[$this->fieldName()]);
 		}
