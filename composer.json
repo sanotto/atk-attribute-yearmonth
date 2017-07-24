@@ -1,0 +1,19 @@
+{
+  "name": "sanotto/atk-attribute-yearmonth",
+  "description": "ATK Attribute to handle year/month entries in the form YYYY-MM",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "framework",
+    "skeleton",
+    "atk",
+    "search"
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "sintattica/atk": "9.0.x-dev"
+  },
+ "autoload": {
+    "psr-4": {"Sintattica\\Atk\\": "src/"}
+  }
+}
