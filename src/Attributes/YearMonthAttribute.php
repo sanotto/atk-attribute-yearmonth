@@ -3,6 +3,7 @@
 namespace Sintattica\Atk\Attributes;
 
 use Sintattica\Atk\Core\Tools;
+use Sintattica\Atk\Core\Language;
 use Sintattica\Atk\Utils\IpUtils;
 
 /**
@@ -21,10 +22,33 @@ class YearMonthAttribute extends Attribute
      */
     public function __construct($name, $flags = 0)
     {
-        parent::__construct($name, $flags);
+		parent::__construct($name, $flags);
+		$this->_loadTranslations();
 		$this->setAttribSize(6);
     }
 
+	/**
+	 *
+	 */
+	private function _loadTranslations()
+	{
+		$lang = Language::getLanguage(); 
+		$language = Language::getInstance();
+		$path = dirname(__FILE__);
+		$path.= DIRECTORY_SEPARATOR.'languages'.DIRECTORY_SEPARATOR;
+		$langfile=$path.$lang.'.php';
+		if(file_exists($langfile))
+		{
+			$values = include $langfile;
+			if (is_array($values)) 
+			{
+				foreach($values as $key=>$value)
+				{
+					$language->setText($key,$value, $lang);
+				}
+            }
+		}	
+	}
     /**
      * Fetch value.
      *
