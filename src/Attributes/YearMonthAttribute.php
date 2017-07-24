@@ -14,11 +14,6 @@ use Sintattica\Atk\Utils\IpUtils;
 class YearMonth extends Attribute
 {
     /**
-     * Flags for the atkIpAttribute.
-     */
-    const AF_NO_HYPHEN = 33554432;
-
-    /**
      * Constructor.
      *
      * @param string $name attribute name
@@ -39,14 +34,7 @@ class YearMonth extends Attribute
      */
     public function fetchValue($postvars)
     {
-		if ($this->hasFlag(self::AF_NO_HYPHEN))
-		{
-			return parent::fetchValue($postvars[$this->fieldName()]);
-		}
-		$value = $postvars[$this->fieldName()];
-		list($year,$month) = explode('-', $value);
-		$value = $year.$month;
-		return parent::fetchValue($value);
+		return parent::fetchValue($postvars[$this->fieldName()]);
     }
 
     public function edit($record, $fieldprefix, $mode)
@@ -69,14 +57,8 @@ class YearMonth extends Attribute
         $strvalue = Tools::atkArrayNvl($record, $this->fieldName(), '');
         if ($strvalue != '' && $strvalue != '...') 
 		{
-			$value = $postvars[$this->fieldName()];
-			list($year,$month) = explode('-', $value);
-
-            if ($this->hasFlag(self::AF_NO_HYPHEN) ) 
-			{
-            	$year = substr($value, 0, 4);
-				$month = substr($value, 5, 2);
-			}
+            $year = substr($value, 0, 4);
+			$month = substr($value, 5, 2);
 
  			if(!is_numeric($year) || !is_numeric($month))
 			{
@@ -106,12 +88,6 @@ class YearMonth extends Attribute
     public function value2db($rec)
     {
 		$value= Tools::atkArrayNvl($rec, $this->fieldName());
-        // By default, return the plain ip number
-        if (!$this->hasFlag(self::AF_NO_HYPHEN)) 
-		{
-			list($year,$month) = explode('-', $value);
-			$value=$year.$month;
-        }
         return $value; 
     }
 
@@ -125,13 +101,7 @@ class YearMonth extends Attribute
     public function db2value($rec)
     {
         // By default, return the plain ip number
-        if ($this->hasFlag(self::AF_NO_HYPHEN)) {
-            return Tools::atkArrayNvl($rec, $this->fieldName());
-        }
-		$year = substr($value, 0, 4);
-		$month = substr($value, 5, 2);
-
-        return $year.'-'.$month; 
+        return Tools::atkArrayNvl($rec, $this->fieldName());
     }
 
     /**

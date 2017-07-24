@@ -4,18 +4,15 @@
 
 This attribute lets you specify a month of a year in the following formats:
 
-* YYYY-MM 
 * YYYYMM
 
-The default format is YYYY-MM, using the  AF_NOHYPHEN flag will change the display
-to the non hyphened format.
 
 ## Using
 
 Use it as any other atk Attribute with
 
 ```
-	$this->add(new YearMonthAttribute('period', AF_NOHYPHEN));
+	$this->add(new YearMonthAttribute('period', AF_OBLIGATORY));
 ```
 ## Why not using a simple numeric attribute instead of this?
 
